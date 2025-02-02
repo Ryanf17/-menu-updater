@@ -1,6 +1,6 @@
 // Function to fetch the latest menu data from GitHub or backend
 async function fetchMenuData() {
-    const response = await fetch('https://raw.githubusercontent.com/your-github-username/restaurant-menu/main/menu.json');
+    const response = await fetch('https://amazing-pothos-d08b8c.netlify.app/');
     const data = await response.json();
 
     // Now, update Site B with the fetched menu data
