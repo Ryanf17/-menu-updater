@@ -1,38 +1,37 @@
-// Function to fetch the latest menu data from GitHub or backend
 async function fetchMenuData() {
-    const response = await fetch('https://menu-updater-admin.netlify.app/.netlify/functions/menuFunctions');
+  try {
+    const response = await fetch('https://menu-updater-admin.netlify.app/.netlify/functions/menuFunctions');  // The admin side endpoint
+    if (!response.ok) throw new Error('Failed to fetch data');
     const data = await response.json();
-
-    // Now, update Site B with the fetched menu data
     updateMenuDisplay(data);
+  } catch (error) {
+    console.error('Error fetching menu data:', error);
+  }
 }
 
-// Function to update the displayed menu based on the fetched data
+// Function to update the displayed menu
 function updateMenuDisplay(data) {
-    const menuContainer = document.getElementById('menu-container'); // where the menu will be displayed
+  const menuContainer = document.getElementById('menu-container');
+  menuContainer.innerHTML = '';  // Clear current menu
 
-    // Clear the current menu display
-    menuContainer.innerHTML = '';
+  for (let category in data) {
+    const categoryContainer = document.createElement('div');
+    categoryContainer.classList.add('menu-category');
+    categoryContainer.innerHTML = `<h2>${category.charAt(0).toUpperCase() + category.slice(1)} Menu</h2>`;
 
-    // Loop through the menu categories (breakfast, lunch, dinner, drinks)
-    for (let category in data) {
-        const categoryContainer = document.createElement('div');
-        categoryContainer.classList.add('menu-category');
-        categoryContainer.innerHTML = `<h2>${category.charAt(0).toUpperCase() + category.slice(1)} Menu</h2>`;
+    data[category].forEach(item => {
+      const itemElement = document.createElement('div');
+      itemElement.classList.add('menu-item');
+      itemElement.innerHTML = `
+        <h3>${item.title}</h3>
+        <p>${item.description}</p>
+      `;
+      categoryContainer.appendChild(itemElement);
+    });
 
-        data[category].forEach(item => {
-            const itemElement = document.createElement('div');
-            itemElement.classList.add('menu-item');
-            itemElement.innerHTML = `
-                <h3>${item.title}</h3>
-                <p>${item.description}</p>
-            `;
-            categoryContainer.appendChild(itemElement);
-        });
-
-        menuContainer.appendChild(categoryContainer);
-    }
+    menuContainer.appendChild(categoryContainer);
+  }
 }
 
-// Fetch the updated menu when Site B loads
+// Call fetchMenuData when the page loads
 fetchMenuData();
