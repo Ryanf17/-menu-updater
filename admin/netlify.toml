@@ -1,8 +1,2 @@
 [build]
-  publish = "public"              # Folder where your build files (e.g., index.html) are located
-  functions = "netlify-functions" # Folder where your Netlify functions are located
-
-[[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/:splat"
-  status = 200
+  functions = "netlify/functions"  # Path to your functions directory
