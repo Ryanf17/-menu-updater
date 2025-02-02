@@ -1,36 +1,278 @@
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f5f7fa;
-    color: #333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Menu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-.container {
-    text-align: center;
-    max-width: 600px;
-    width: 100%;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
 
-h1 {
-    color: #333;
-    font-size: 2rem;
-    margin-bottom: 20px;
-    font-weight: 700;
-}
+        .container {
+            text-align: center;
+            max-width: 800px;
+            width: 100%;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
 
-ul {
-    list-style-type: none;
-    padding: 0;
-}
+        h1 {
+            color: #333;
+            font-size: 2.5rem;
+            margin-bottom: 5px; /* Further reduced margin */
+            font-weight: 700;
+        }
 
-li {
-    margin: 10px 0;
-}
+        .date {
+            font-size: 1.2rem;
+            color: #777;
+            margin-top: 5px; /* Reduced margin */
+            margin-bottom: 15px; /* Reduced margin */
+            font-weight: 500;
+        }
+
+        .menu-buttons {
+            margin-bottom: 30px;
+        }
+
+        .menu-buttons button {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 30px;
+            margin: 0 10px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .menu-buttons button:hover {
+            background-color: #45a049;
+            transform: translateY(-3px);
+        }
+
+        .menu {
+            display: none;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .menu ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .menu ul li {
+            margin: 12px 0;
+            padding: 10px;
+            background-color: #f0f4f7;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .menu ul li:hover {
+            background-color: #e0e5ec;
+        }
+
+        .menu .description {
+            font-size: 0.9rem;
+            color: #777;
+            margin-top: 5px;
+            line-height: 1.5;
+        }
+
+        .menu.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 90%;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .menu-buttons button {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Restaurant Menu</h1>
+
+        <div class="date" id="currentDate"></div>
+
+        <div class="menu-buttons">
+            <button onclick="showMenu('breakfast')">Breakfast</button>
+            <button onclick="showMenu('lunch')">Lunch</button>
+            <button onclick="showMenu('dinner')">Dinner</button>
+            <button onclick="showMenu('drinks')">Drinks</button>
+        </div>
+
+        <div id="breakfastMenu" class="menu active">
+            <h2>Breakfast Menu</h2>
+            <ul>
+                <li>
+                    Classic Pancakes with Syrup
+                    <div class="description">Fluffy pancakes served with warm maple syrup and a dusting of powdered sugar.</div>
+                </li>
+                <li>
+                    Scrambled Eggs with Bacon
+                    <div class="description">Creamy scrambled eggs paired with crispy bacon strips.</div>
+                </li>
+                <li>
+                    Avocado Toast with Poached Eggs
+                    <div class="description">Whole-grain toast topped with smashed avocado and a perfectly poached egg.</div>
+                </li>
+                <li>
+                    Breakfast Burrito (Bacon, Eggs, Cheese, Salsa)
+                    <div class="description">A hearty burrito filled with bacon, scrambled eggs, cheese, and fresh salsa.</div>
+                </li>
+                <li>
+                    Oatmeal with Fresh Fruit and Honey
+                    <div class="description">Warm oatmeal topped with fresh seasonal fruits and a drizzle of honey.</div>
+                </li>
+            </ul>
+        </div>
+
+        <div id="lunchMenu" class="menu">
+            <h2>Lunch Menu</h2>
+            <ul>
+                <li>
+                    Grilled Chicken Caesar Salad
+                    <div class="description">Tender grilled chicken served on a bed of romaine lettuce with Caesar dressing, croutons, and parmesan.</div>
+                </li>
+                <li>
+                    BBQ Bacon Burger with Fries
+                    <div class="description">Juicy beef patty topped with crispy bacon, BBQ sauce, and melted cheese. Served with crispy fries.</div>
+                </li>
+                <li>
+                    Vegetarian Wrap with Hummus and Veggies
+                    <div class="description">A fresh wrap filled with hummus, mixed vegetables, and greens, wrapped in a whole wheat tortilla.</div>
+                </li>
+                <li>
+                    Classic BLT Sandwich with Chips
+                    <div class="description">Bacon, lettuce, and tomato on toasted bread, served with a side of crispy chips.</div>
+                </li>
+                <li>
+                    Turkey Club with Avocado
+                    <div class="description">Sliced turkey, bacon, avocado, and lettuce stacked between toasted bread slices.</div>
+                </li>
+            </ul>
+        </div>
+
+        <div id="dinnerMenu" class="menu">
+            <h2>Dinner Menu</h2>
+            <ul>
+                <li>
+                    Grilled Salmon with Asparagus
+                    <div class="description">Perfectly grilled salmon served with a side of roasted asparagus and lemon butter sauce.</div>
+                </li>
+                <li>
+                    Steak Frites with Garlic Butter
+                    <div class="description">A tender steak cooked to your liking, served with crispy fries and a garlic butter sauce.</div>
+                </li>
+                <li>
+                    Chicken Alfredo Pasta
+                    <div class="description">Creamy alfredo sauce over fettuccine pasta, topped with grilled chicken and parmesan cheese.</div>
+                </li>
+                <li>
+                    Vegetable Stir-Fry with Tofu
+                    <div class="description">Mixed vegetables stir-fried with tofu in a savory soy sauce, served with jasmine rice.</div>
+                </li>
+                <li>
+                    Seared Tuna with Rice Pilaf
+                    <div class="description">Seared tuna steak served with a fragrant rice pilaf and a citrus dressing.</div>
+                </li>
+            </ul>
+        </div>
+
+        <div id="drinksMenu" class="menu">
+            <h2>Drinks Menu</h2>
+            <ul>
+                <li>
+                    Fresh Lemonade
+                    <div class="description">Refreshing lemonade made with fresh lemons, sugar, and water, served chilled.</div>
+                </li>
+                <li>
+                    Iced Tea
+                    <div class="description">Cold brewed tea served with ice and a slice of lemon.</div>
+                </li>
+                <li>
+                    Classic Soda
+                    <div class="description">Choose from Cola, Sprite, or Root Beer served with ice.</div>
+                </li>
+                <li>
+                    Coffee
+                    <div class="description">Hot, freshly brewed coffee served black or with cream and sugar.</div>
+                </li>
+                <li>
+                    Smoothie (Mango, Strawberry, Banana)
+                    <div class="description">A creamy smoothie made with your choice of fruit, blended with yogurt and ice.</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function showMenu(meal) {
+            // Hide all menus
+            document.querySelectorAll('.menu').forEach(menu => menu.classList.remove('active'));
+
+            // Show the selected menu
+            document.getElementById(`${meal}Menu`).classList.add('active');
+        }
+
+        // Display the current date in MM/DD/YYYY format
+        function formatDate(date) {
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const year = date.getFullYear();
+            return `${month}/${day}/${year}`;
+        }
+
+        // Set the current date in the date div
+        document.getElementById('currentDate').textContent = formatDate(new Date());
+    </script>
+
+</body>
+</html>
