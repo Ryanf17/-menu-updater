@@ -1,22 +1,21 @@
 exports.handler = async function(event, context) {
-  // Allow cross-origin requests from your customer site (Site B)
   const headers = {
-    'Access-Control-Allow-Origin': 'https://menu17.netlify.app',  // Set this to the domain of your customer site
-    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE', // Allow methods you will use
-    'Access-Control-Allow-Headers': 'Content-Type',  // Allow content-type header
+    'Access-Control-Allow-Origin': 'https://menu17.netlify.app', // Allow access from the customer site
+    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',     // Allow these methods
+    'Access-Control-Allow-Headers': 'Content-Type',               // Allow Content-Type header
   };
 
-  // If the method is OPTIONS (pre-flight request for CORS), return early with allowed methods and headers
+  // Handle OPTIONS request (CORS preflight)
   if (event.httpMethod === 'OPTIONS') {
     return {
       statusCode: 200,
       headers,
-      body: JSON.stringify({ message: 'CORS pre-flight check' }),
+      body: JSON.stringify({ message: 'CORS preflight check' }),
     };
   }
 
   try {
-    // Your existing logic for handling the API request goes here
+    // Replace this with actual dynamic data if necessary
     const menuData = {
       breakfast: [{ title: 'Pancakes', description: 'Delicious pancakes with syrup' }],
       lunch: [{ title: 'Burger', description: 'Juicy beef burger with lettuce' }],
@@ -27,7 +26,7 @@ exports.handler = async function(event, context) {
     return {
       statusCode: 200,
       headers,
-      body: JSON.stringify(menuData), // Return your actual menu data here
+      body: JSON.stringify(menuData), // Return the actual menu data
     };
   } catch (error) {
     return {
