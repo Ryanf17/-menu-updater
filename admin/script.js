@@ -77,27 +77,46 @@ function saveMenu(menu) {
         items.push({ title, description });
     });
 
-    // Update the menuData array
-    menuData[menu] = items;
-
-    // Send updated menuData to Site B (GitHub or Backend)
-    pushMenuData();  // Send to server or GitHub
+    // Log saved menu (or send to customer side)
     console.log(`Saved ${menu} Menu:`, items);
+    // Here, you can send this data to the customer side (Site B)
 }
 
-// Function to push updated menu data to GitHub or backend
-async function pushMenuData() {
-    const menuDataJson = JSON.stringify(menuData);
+// Fetch the updated menu when Site B loads (optional)
+async function fetchMenuData() {
+    const response = await fetch('https://raw.githubusercontent.com/your-github-username/restaurant-menu/main/menu.json');
+    const data = await response.json();
 
-    // Use GitHub API or custom backend API to update the menu
-    const response = await fetch('https://your-api-or-github-endpoint', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer your-token-here`  // If using GitHub or protected API
-        },
-        body: menuDataJson
-    });
+    // Now, update Site B with the fetched menu data
+    updateMenuDisplay(data);
+}
 
-    const result = await response.json();
-    console.log('Menu data pushed successfully:', result);
+// Function to update the displayed menu based on the fetched data
+function updateMenuDisplay(data) {
+    const menuContainer = document.getElementById('menu-container'); // where the menu will be displayed
+
+    // Clear the current menu display
+    menuContainer.innerHTML = '';
+
+    // Loop through the menu categories (breakfast, lunch, dinner, drinks)
+    for (let category in data) {
+        const categoryContainer = document.createElement('div');
+        categoryContainer.classList.add('menu-category');
+        categoryContainer.innerHTML = `<h2>${category.charAt(0).toUpperCase() + category.slice(1)} Menu</h2>`;
+
+        data[category].forEach(item => {
+            const itemElement = document.createElement('div');
+            itemElement.classList.add('menu-item');
+            itemElement.innerHTML = `
+                <h3>${item.title}</h3>
+                <p>${item.description}</p>
+            `;
+            categoryContainer.appendChild(itemElement);
+        });
+
+        menuContainer.appendChild(categoryContainer);
+    }
+}
+
+// Fetch the updated menu when Site B loads
+fetchMenuData();
