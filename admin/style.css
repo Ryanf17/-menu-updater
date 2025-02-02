@@ -131,6 +131,15 @@ h1 {
     color: darkred;
 }
 
+.edit-btn {
+    background-color: transparent;
+    border: none;
+    color: #333;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
 /* Media Query for smaller screens */
 @media (max-width: 600px) {
     .container {
