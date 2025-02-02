@@ -1,1 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Admin</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Menu Update</h1>
+        <form id="menuForm">
+            <label for="menuName">Menu Name:</label>
+            <input type="text" id="menuName" name="menuName" required>
 
+            <label for="menuItems">Menu Items (comma separated):</label>
+            <textarea id="menuItems" name="menuItems" required></textarea>
+
+            <label for="date">Date:</label>
+            <input type="text" id="date" name="date" value="" readonly>
+
+            <button type="submit">Send Menu Update</button>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
