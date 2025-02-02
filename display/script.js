@@ -1,6 +1,6 @@
 // Function to fetch the latest menu data from GitHub or backend
 async function fetchMenuData() {
-    const response = await fetch('https://your-netlify-endpoint-or-github-api');
+    const response = await fetch('https://menu-updater-admin.netlify.app/.netlify/functions/menuFunctions');
     const data = await response.json();
 
     // Now, update Site B with the fetched menu data
