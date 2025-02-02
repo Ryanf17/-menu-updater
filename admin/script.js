@@ -1,4 +1,30 @@
-// Set the current date in MM/DD/YYYY format
+function showMenu(meal) {
+    // Hide all menus
+    document.querySelectorAll('.menu').forEach(menu => menu.classList.remove('active'));
+
+    // Show the selected menu
+    document.getElementById(`${meal}Menu`).classList.add('active');
+}
+
+// Function to remove a menu item
+function removeItem(button) {
+    const item = button.parentElement;
+    item.remove();
+}
+
+// Function to add a new menu item (you can customize this to add input fields for customization)
+function addItem(menu) {
+    const menuList = document.getElementById(`${menu}Items`);
+    const newItem = document.createElement('li');
+    newItem.innerHTML = `
+        <span>New Menu Item</span>
+        <div class="description">Description of the new item.</div>
+        <button class="remove-btn" onclick="removeItem(this)">🗑️</button>
+    `;
+    menuList.appendChild(newItem);
+}
+
+// Display the current date in MM/DD/YYYY format
 function formatDate(date) {
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
@@ -6,37 +32,5 @@ function formatDate(date) {
     return `${month}/${day}/${year}`;
 }
 
-// Set date field value on page load
-document.getElementById('date').value = formatDate(new Date());
-
-// Handle form submission
-document.getElementById('menuForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    const menuName = document.getElementById('menuName').value;
-    const menuItems = document.getElementById('menuItems').value;
-    const date = document.getElementById('date').value;
-
-    const menuData = {
-        menuName: menuName,
-        menuItems: menuItems.split(','),
-        date: date
-    };
-
-    fetch('https://your-netlify-site-b-url/submit-menu', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(menuData),
-    })
-    .then(response => response.json())
-    .then(data => {
-        alert('Menu updated successfully!');
-        document.getElementById('menuForm').reset();
-    })
-    .catch(error => {
-        alert('Error updating menu!');
-        console.error('Error:', error);
-    });
-});
+// Set the current date in the date div
+document.getElementById('currentDate').textContent = formatDate(new Date());
