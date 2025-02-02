@@ -77,7 +77,28 @@ function saveMenu(menu) {
         items.push({ title, description });
     });
 
-    // Log saved menu (or send to customer side)
+    // Update the menuData array
+    menuData[menu] = items;
+
+    // Send updated menuData to Site B (GitHub or Backend)
+    pushMenuData();  // Send to server or GitHub
     console.log(`Saved ${menu} Menu:`, items);
-    // Here, you can send this data to the customer side (Site B)
+}
+
+// Function to push updated menu data to GitHub or backend
+async function pushMenuData() {
+    const menuDataJson = JSON.stringify(menuData);
+
+    // Use GitHub API or custom backend API to update the menu
+    const response = await fetch('https://your-api-or-github-endpoint', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer your-token-here`  // If using GitHub or protected API
+        },
+        body: menuDataJson
+    });
+
+    const result = await response.json();
+    console.log('Menu data pushed successfully:', result);
 }
