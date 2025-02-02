@@ -1,18 +1,26 @@
 // menuFunctions.js (Netlify Function)
 
 exports.handler = async function(event, context) {
-    // Handle CORS headers for cross-origin requests
     const headers = {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*', // Allow all origins (use specific domain if you prefer)
+        // Replace this with your actual customer site URL
+        'Access-Control-Allow-Origin': 'https://menu17.netlify.app',  // Allow only this origin
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE', // Allow methods
         'Access-Control-Allow-Headers': 'Content-Type, Authorization' // Allow necessary headers
     };
 
-    // Check if the request is a GET (could be other methods like POST, PUT, DELETE)
+    if (event.httpMethod === 'OPTIONS') {
+        // Allow preflight requests (CORS)
+        return {
+            statusCode: 200,
+            headers: headers,
+            body: ''
+        };
+    }
+
     if (event.httpMethod === 'GET') {
         try {
-            // Replace this with actual data fetching or static menu data
+            // Your menu data, for now using static data
             const menuData = {
                 breakfast: [
                     { title: "Pancakes", description: "Fluffy pancakes served with syrup" },
@@ -35,7 +43,7 @@ exports.handler = async function(event, context) {
             return {
                 statusCode: 200,
                 headers: headers,
-                body: JSON.stringify(menuData) // Send the menu data as JSON
+                body: JSON.stringify(menuData) // Return menu data
             };
         } catch (error) {
             return {
