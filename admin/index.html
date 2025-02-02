@@ -3,63 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Restaurant Menu Admin</title>
+    <title>Restaurant Menu</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <div class="container">
-        <h1>Restaurant Menu - Admin</h1>
+        <h1>Restaurant Menu</h1>
+        <button onclick="showMenu('breakfast')">Show Breakfast</button>
+        <button onclick="showMenu('lunch')">Show Lunch</button>
+        <button onclick="showMenu('dinner')">Show Dinner</button>
+        <button onclick="showMenu('drinks')">Show Drinks</button>
 
-        <div class="date" id="currentDate"></div>
-
-        <div class="menu-buttons">
-            <button onclick="showMenu('breakfast')">Breakfast</button>
-            <button onclick="showMenu('lunch')">Lunch</button>
-            <button onclick="showMenu('dinner')">Dinner</button>
-            <button onclick="showMenu('drinks')">Drinks</button>
-        </div>
-
-        <div id="breakfastMenu" class="menu active">
-            <h2>Breakfast Menu</h2>
-            <ul id="breakfastItems">
-                <!-- Default items are added here -->
-                <li>
-                    <span>Classic Pancakes with Syrup</span>
-                    <div class="description">Fluffy pancakes served with warm maple syrup and a dusting of powdered sugar.</div>
-                    <button class="remove-btn" onclick="removeItem(this)">🗑️</button>
-                    <button class="edit-btn" onclick="editItem(this)">✏️ Edit</button>
-                </li>
-            </ul>
-            <button onclick="addItem('breakfast')">Add Item</button>
-            <button onclick="saveMenu('breakfast')">Save Menu</button>
-        </div>
-
-        <div id="lunchMenu" class="menu">
-            <h2>Lunch Menu</h2>
-            <ul id="lunchItems">
-                <!-- Default items for lunch -->
-            </ul>
-            <button onclick="addItem('lunch')">Add Item</button>
-            <button onclick="saveMenu('lunch')">Save Menu</button>
-        </div>
-
-        <div id="dinnerMenu" class="menu">
-            <h2>Dinner Menu</h2>
-            <ul id="dinnerItems">
-                <!-- Default items for dinner -->
-            </ul>
-            <button onclick="addItem('dinner')">Add Item</button>
-            <button onclick="saveMenu('dinner')">Save Menu</button>
-        </div>
-
-        <div id="drinksMenu" class="menu">
-            <h2>Drinks Menu</h2>
-            <ul id="drinksItems">
-                <!-- Default items for drinks -->
-            </ul>
-            <button onclick="addItem('drinks')">Add Item</button>
-            <button onclick="saveMenu('drinks')">Save Menu</button>
+        <div id="menuContent">
+            <div id="breakfastMenu" class="menu">
+                <ul id="breakfastItems">
+                    <!-- Customizable items will be added here -->
+                </ul>
+                <button onclick="addItem('breakfast')">Add Breakfast Item</button>
+            </div>
+            <div id="lunchMenu" class="menu">
+                <ul id="lunchItems">
+                    <!-- Customizable items will be added here -->
+                </ul>
+                <button onclick="addItem('lunch')">Add Lunch Item</button>
+            </div>
+            <div id="dinnerMenu" class="menu">
+                <ul id="dinnerItems">
+                    <!-- Customizable items will be added here -->
+                </ul>
+                <button onclick="addItem('dinner')">Add Dinner Item</button>
+            </div>
+            <div id="drinksMenu" class="menu">
+                <ul id="drinksItems">
+                    <!-- Customizable items will be added here -->
+                </ul>
+                <button onclick="addItem('drinks')">Add Drink Item</button>
+            </div>
         </div>
     </div>
 
