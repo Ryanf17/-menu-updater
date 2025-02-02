@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Restaurant Menu</title>
+    <title>Restaurant Menu Admin</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="container">
-        <h1>Restaurant Menu</h1>
+        <h1>Restaurant Menu - Admin</h1>
 
         <div class="date" id="currentDate"></div>
 
@@ -23,49 +23,43 @@
         <div id="breakfastMenu" class="menu active">
             <h2>Breakfast Menu</h2>
             <ul id="breakfastItems">
+                <!-- Default items are added here -->
                 <li>
                     <span>Classic Pancakes with Syrup</span>
                     <div class="description">Fluffy pancakes served with warm maple syrup and a dusting of powdered sugar.</div>
                     <button class="remove-btn" onclick="removeItem(this)">🗑️</button>
+                    <button class="edit-btn" onclick="editItem(this)">✏️ Edit</button>
                 </li>
             </ul>
             <button onclick="addItem('breakfast')">Add Item</button>
+            <button onclick="saveMenu('breakfast')">Save Menu</button>
         </div>
 
         <div id="lunchMenu" class="menu">
             <h2>Lunch Menu</h2>
             <ul id="lunchItems">
-                <li>
-                    <span>Grilled Chicken Caesar Salad</span>
-                    <div class="description">Tender grilled chicken served on a bed of romaine lettuce with Caesar dressing, croutons, and parmesan.</div>
-                    <button class="remove-btn" onclick="removeItem(this)">🗑️</button>
-                </li>
+                <!-- Default items for lunch -->
             </ul>
             <button onclick="addItem('lunch')">Add Item</button>
+            <button onclick="saveMenu('lunch')">Save Menu</button>
         </div>
 
         <div id="dinnerMenu" class="menu">
             <h2>Dinner Menu</h2>
             <ul id="dinnerItems">
-                <li>
-                    <span>Grilled Salmon with Asparagus</span>
-                    <div class="description">Perfectly grilled salmon served with a side of roasted asparagus and lemon butter sauce.</div>
-                    <button class="remove-btn" onclick="removeItem(this)">🗑️</button>
-                </li>
+                <!-- Default items for dinner -->
             </ul>
             <button onclick="addItem('dinner')">Add Item</button>
+            <button onclick="saveMenu('dinner')">Save Menu</button>
         </div>
 
         <div id="drinksMenu" class="menu">
             <h2>Drinks Menu</h2>
             <ul id="drinksItems">
-                <li>
-                    <span>Fresh Lemonade</span>
-                    <div class="description">Refreshing lemonade made with fresh lemons, sugar, and water, served chilled.</div>
-                    <button class="remove-btn" onclick="removeItem(this)">🗑️</button>
-                </li>
+                <!-- Default items for drinks -->
             </ul>
             <button onclick="addItem('drinks')">Add Item</button>
+            <button onclick="saveMenu('drinks')">Save Menu</button>
         </div>
     </div>
 
