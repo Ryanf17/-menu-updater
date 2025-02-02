@@ -3,24 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu Admin</title>
+    <title>Restaurant Menu</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <div class="container">
-        <h1>Admin Menu Update</h1>
-        <form id="menuForm">
-            <label for="menuName">Menu Name:</label>
-            <input type="text" id="menuName" name="menuName" required>
+        <h1>Restaurant Menu</h1>
 
-            <label for="menuItems">Menu Items (comma separated):</label>
-            <textarea id="menuItems" name="menuItems" required></textarea>
+        <div class="date" id="currentDate"></div>
 
-            <label for="date">Date:</label>
-            <input type="text" id="date" name="date" value="" readonly>
+        <div class="menu-buttons">
+            <button onclick="showMenu('breakfast')">Breakfast</button>
+            <button onclick="showMenu('lunch')">Lunch</button>
+            <button onclick="showMenu('dinner')">Dinner</button>
+            <button onclick="showMenu('drinks')">Drinks</button>
+        </div>
 
-            <button type="submit">Send Menu Update</button>
-        </form>
+        <div id="breakfastMenu" class="menu active">
+            <h2>Breakfast Menu</h2>
+            <ul id="breakfastItems">
+                <li>
+                    <span>Classic Pancakes with Syrup</span>
+                    <div class="description">Fluffy pancakes served with warm maple syrup and a dusting of powdered sugar.</div>
+                    <button class="remove-btn" onclick="removeItem(this)">🗑️</button>
+                </li>
+            </ul>
+            <button onclick="addItem('breakfast')">Add Item</button>
+        </div>
+
+        <div id="lunchMenu" class="menu">
+            <h2>Lunch Menu</h2>
+            <ul id="lunchItems">
+                <li>
+                    <span>Grilled Chicken Caesar Salad</span>
+                    <div class="description">Tender grilled chicken served on a bed of romaine lettuce with Caesar dressing, croutons, and parmesan.</div>
+                    <button class="remove-btn" onclick="removeItem(this)">🗑️</button>
+                </li>
+            </ul>
+            <button onclick="addItem('lunch')">Add Item</button>
+        </div>
+
+        <div id="dinnerMenu" class="menu">
+            <h2>Dinner Menu</h2>
+            <ul id="dinnerItems">
+                <li>
+                    <span>Grilled Salmon with Asparagus</span>
+                    <div class="description">Perfectly grilled salmon served with a side of roasted asparagus and lemon butter sauce.</div>
+                    <button class="remove-btn" onclick="removeItem(this)">🗑️</button>
+                </li>
+            </ul>
+            <button onclick="addItem('dinner')">Add Item</button>
+        </div>
+
+        <div id="drinksMenu" class="menu">
+            <h2>Drinks Menu</h2>
+            <ul id="drinksItems">
+                <li>
+                    <span>Fresh Lemonade</span>
+                    <div class="description">Refreshing lemonade made with fresh lemons, sugar, and water, served chilled.</div>
+                    <button class="remove-btn" onclick="removeItem(this)">🗑️</button>
+                </li>
+            </ul>
+            <button onclick="addItem('drinks')">Add Item</button>
+        </div>
     </div>
 
     <script src="script.js"></script>
