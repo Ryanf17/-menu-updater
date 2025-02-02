@@ -1,47 +1,60 @@
-// Function to show the active menu
-function showMenu(meal) {
-    // Hide all menus
-    document.querySelectorAll('.menu').forEach(menu => menu.classList.remove('active'));
+// Function to save custom item after editing
+function saveCustomItem(button) {
+    const item = button.parentElement;
+    const titleInput = item.querySelector('.title-input');
+    const descriptionInput = item.querySelector('.description-input');
 
-    // Show the selected menu
-    document.getElementById(`${meal}Menu`).classList.add('active');
+    // Save input values into menuData
+    const menuId = item.closest('.menu').id.replace('Menu', '').toLowerCase(); 
+    menuData[menuId].push({
+        title: titleInput.value,
+        description: descriptionInput.value
+    });
+
+    // Replace inputs with saved data
+    item.innerHTML = `
+        <span>${titleInput.value}</span>
+        <div class="description">${descriptionInput.value}</div>
+        <button class="remove-btn" onclick="removeItem(this)">🗑️</button>
+        <button class="edit-btn" onclick="editItem(this)">✏️ Edit</button>
+    `;
 }
 
-// Fetch the updated menu when Site B loads (if you need to add data-fetching)
-async function fetchMenuData() {
-    const response = await fetch('https://raw.githubusercontent.com/your-github-username/restaurant-menu/main/menu.json');
-    const data = await response.json();
+// Function to send updated menu to backend
+async function pushMenuData() {
+    const menu = {
+        breakfast: [],
+        lunch: [],
+        dinner: [],
+        drinks: []
+    };
 
-    // Now, update Site B with the fetched menu data
-    updateMenuDisplay(data);
-}
-
-// Function to update the displayed menu based on the fetched data
-function updateMenuDisplay(data) {
-    const menuContainer = document.getElementById('menu-container'); // where the menu will be displayed
-
-    // Clear the current menu display
-    menuContainer.innerHTML = '';
-
-    // Loop through the menu categories (breakfast, lunch, dinner, drinks)
-    for (let category in data) {
-        const categoryContainer = document.createElement('div');
-        categoryContainer.classList.add('menu-category');
-        categoryContainer.innerHTML = `<h2>${category.charAt(0).toUpperCase() + category.slice(1)} Menu</h2>`;
-
-        data[category].forEach(item => {
-            const itemElement = document.createElement('div');
-            itemElement.classList.add('menu-item');
-            itemElement.innerHTML = `
-                <h3>${item.title}</h3>
-                <p>${item.description}</p>
-            `;
-            categoryContainer.appendChild(itemElement);
+    // Collect menu items
+    document.querySelectorAll('.menu').forEach(menuElement => {
+        const menuId = menuElement.id.replace('Menu', '').toLowerCase();
+        const items = menuElement.querySelectorAll('li');
+        items.forEach(item => {
+            const title = item.querySelector('.title-input') ? item.querySelector('.title-input').value : item.querySelector('span').textContent;
+            const description = item.querySelector('.description-input') ? item.querySelector('.description-input').value : item.querySelector('.description').textContent;
+            menu[menuId].push({ title, description });
         });
+    });
 
-        menuContainer.appendChild(categoryContainer);
+    // Send updated menu to backend (Netlify or GitHub API)
+    const response = await fetch('https://your-netlify-endpoint-or-github-api', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(menu) // Send the updated menu data
+    });
+
+    if (response.ok) {
+        console.log('Menu updated successfully!');
+    } else {
+        console.error('Failed to update the menu.');
     }
 }
 
-// Fetch the updated menu when Site B loads
-fetchMenuData();
+// Call pushMenuData when needed (e.g., when you save the menu)
+document.getElementById('saveMenuButton').addEventListener('click', pushMenuData);
