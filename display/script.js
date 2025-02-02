@@ -1,6 +1,6 @@
 // Function to fetch the latest menu data from GitHub or backend
 async function fetchMenuData() {
-    const response = await fetch('https://amazing-pothos-d08b8c.netlify.app/');
+    const response = await fetch('https://your-netlify-endpoint-or-github-api');
     const data = await response.json();
 
     // Now, update Site B with the fetched menu data
@@ -9,7 +9,7 @@ async function fetchMenuData() {
 
 // Function to update the displayed menu based on the fetched data
 function updateMenuDisplay(data) {
-    const menuContainer = document.getElementById('restaurantMenu'); // Corrected to match the ID in the HTML
+    const menuContainer = document.getElementById('menu-container'); // where the menu will be displayed
 
     // Clear the current menu display
     menuContainer.innerHTML = '';
