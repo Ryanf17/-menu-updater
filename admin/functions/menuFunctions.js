@@ -3,14 +3,13 @@
 exports.handler = async function(event, context) {
     const headers = {
         'Content-Type': 'application/json',
-        // Replace this with your actual customer site URL
-        'Access-Control-Allow-Origin': 'https://menu17.netlify.app',  // Allow only this origin
+        'Access-Control-Allow-Origin': 'https://menu17.netlify.app',  // Allow only this origin (customer site)
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE', // Allow methods
         'Access-Control-Allow-Headers': 'Content-Type, Authorization' // Allow necessary headers
     };
 
+    // Handle the preflight OPTIONS request (CORS)
     if (event.httpMethod === 'OPTIONS') {
-        // Allow preflight requests (CORS)
         return {
             statusCode: 200,
             headers: headers,
@@ -18,32 +17,29 @@ exports.handler = async function(event, context) {
         };
     }
 
+    // Handle the GET request for fetching the menu
     if (event.httpMethod === 'GET') {
         try {
-            // Your menu data, for now using static data
+            // Sample menu data (replace with your actual data retrieval logic)
             const menuData = {
                 breakfast: [
-                    { title: "Pancakes", description: "Fluffy pancakes served with syrup" },
-                    { title: "Omelette", description: "Eggs with cheese and vegetables" }
+                    { title: "Eggs", description: "Eggs with cheese and pepper" }
                 ],
                 lunch: [
-                    { title: "Burger", description: "Beef patty with cheese and lettuce" },
-                    { title: "Salad", description: "Fresh greens with dressing" }
+                    { title: "Burger", description: "Beef patty with lettuce" }
                 ],
                 dinner: [
-                    { title: "Steak", description: "Grilled steak served with mashed potatoes" },
-                    { title: "Pasta", description: "Spaghetti with marinara sauce" }
+                    { title: "Steak", description: "Grilled steak with potatoes" }
                 ],
                 drinks: [
-                    { title: "Coffee", description: "Hot brewed coffee" },
-                    { title: "Juice", description: "Fresh orange juice" }
+                    { title: "Coffee", description: "Hot brewed coffee" }
                 ]
             };
 
             return {
                 statusCode: 200,
                 headers: headers,
-                body: JSON.stringify(menuData) // Return menu data
+                body: JSON.stringify(menuData) // Return the menu data as JSON
             };
         } catch (error) {
             return {
@@ -53,6 +49,7 @@ exports.handler = async function(event, context) {
             };
         }
     } else {
+        // Handle unsupported HTTP methods
         return {
             statusCode: 405,
             headers: headers,
