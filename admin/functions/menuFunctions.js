@@ -1,36 +1,28 @@
-exports.handler = async function(event, context) {
-    const headers = {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',  // 🔥 TEMPORARY: Allow all origins (for testing)
-        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization'
-    };
+const menuStorage = { 
+    breakfast: [], 
+    lunch: [], 
+    dinner: [], 
+    drinks: [] 
+};
 
-    if (event.httpMethod === 'OPTIONS') {
+exports.handler = async (event) => {
+    if (event.httpMethod === 'GET') {
         return {
             statusCode: 200,
-            headers: headers,
-            body: ''
+            body: JSON.stringify(menuStorage)
         };
+    } else if (event.httpMethod === 'POST') {
+        try {
+            const newMenu = JSON.parse(event.body);
+            Object.assign(menuStorage, newMenu); // Update menu
+            return {
+                statusCode: 200,
+                body: JSON.stringify({ message: "Menu updated successfully", menu: menuStorage })
+            };
+        } catch (error) {
+            return { statusCode: 400, body: JSON.stringify({ error: "Invalid JSON data" }) };
+        }
     }
 
-    try {
-        const menuData = {
-            breakfast: [
-                { title: "Eggs", description: "Eggs with cheese and pepper" }
-            ]
-        };
-
-        return {
-            statusCode: 200,
-            headers: headers,
-            body: JSON.stringify(menuData)
-        };
-    } catch (error) {
-        return {
-            statusCode: 500,
-            headers: headers,
-            body: JSON.stringify({ error: 'Failed to fetch menu data' })
-        };
-    }
+    return { statusCode: 405, body: JSON.stringify({ error: "Method not allowed" }) };
 };
